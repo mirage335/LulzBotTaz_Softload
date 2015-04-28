@@ -2,4 +2,4 @@
 
 . ubiquitous_bash.sh
 
-./Printrun/pronterface.py -c "$(getScriptAbsoluteFolder)/LulzBotTazConfig/.pronsolerc"
+"$(getScriptAbsoluteFolder)"/Printrun/pronterface.py -c "$(getScriptAbsoluteFolder)/LulzBotTazConfig/.pronsolerc"
