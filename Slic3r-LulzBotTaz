@@ -1,0 +1,7 @@
+#!/bin/bash
+
+. ubiquitous_bash.sh
+
+mkdir -p "$(getScriptAbsoluteFolder)/LulzBotTazConfig/.Slic3r"
+
+proot -b "$(getScriptAbsoluteFolder)/LulzBotTazConfig/.Slic3r:"$HOME"/.Slic3r" "$(getScriptAbsoluteFolder)/Slic3r/bin/slic3r"
