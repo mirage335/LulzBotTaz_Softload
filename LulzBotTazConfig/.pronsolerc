@@ -1,7 +1,7 @@
 
 set last_window_maximized True
-set last_window_width 800
-set last_window_height 500
+set last_window_width 1385
+set last_window_height 857
 set port /dev/ttyACM0
 set last_sash_position 621
 set baudrate 115200
@@ -9,15 +9,15 @@ set last_bed_temperature 65.0
 set last_temperature 185.0
 set xy_feedrate 9000
 set z_feedrate 100
-set e_feedrate 45
-set last_extrusion 150
-button 0 "Center" /c "teal" g0 x150 y150
-button 1 "TopLeft" /c "teal" g0 x35 y35
-button 2 "TopCenter" /c "teal" g0 x150 y35
-button 3 "TopRight" /c "teal" g0 x265 y35
-button 4 "BottomLeft" /c "teal" g0 x35 y265
-button 5 "BottomCenter" /c "teal" g0 x150 y265
-button 6 "BottomRight" /c "teal" g0 x265 y265
+set e_feedrate 65
+set last_extrusion 1
+button 0 "Center" /c "teal" g0 x150 y150 f9000
+button 1 "TopLeft" /c "teal" g0 x35 y35 f9000
+button 2 "TopCenter" /c "teal" g0 x150 y35 f9000
+button 3 "TopRight" /c "teal" g0 x265 y35 f9000
+button 4 "BottomLeft" /c "teal" g0 x35 y265 f9000
+button 5 "BottomCenter" /c "teal" g0 x150 y265 f9000
+button 6 "BottomRight" /c "teal" g0 x265 y265 f9000
 macro Check
   g0 x35 y35
   g0 x265 y35
@@ -32,7 +32,7 @@ macro D1
   g0 x265 y35
   g0 x35 y35
 button 8 "Bottom" /c "teal" Bottom
-set total_filament_used 11516.0591
+set total_filament_used 40340.02621
 button 9 "Check" /c "teal" Check
 button 10 "Diag" /c "teal" D1
 button 11 "Laser ON" /c "red" M42 P13 S255
@@ -43,6 +43,35 @@ button 12 "Laser OFF" /c "red" M42 P13 S0
 macro Bottom
   g0 x265 y265 F9000
   g0 x35 y265 F9000
-button 13 "Offset" /c "green" g0 x100 y100
-button 14 "PauseSD" M25
-button 15 "CaseFan" M42 P2 S128
+button 13 "Focus" /c "Red" FocusTest
+button 14 "AltHome" /c "green" HomeOffset
+button 15 "PauseSD" M25
+macro FocusTest
+  M42 P13 S0
+  M106 S255
+  G91
+  G0 X0 Y0 F2000
+  M400
+  M3
+  M42 P13 S32
+  G0 X25 F480
+  M400
+  M5
+  M42 P13 S0
+  G0 X-25 F2000
+  G0 X0 Y0.127 F2000
+  M400
+  M3
+  M42 P13 S32
+  G0 X25 F480
+  M400
+  M5
+  M42 P13 S0
+  G0 X-25 F2000
+  G90
+macro HomeOffset
+  g0 z10 f100
+  g28 y
+  g28 x
+  g0 x100 y100 f9000
+  g28 z
