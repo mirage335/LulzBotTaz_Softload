@@ -1,0 +1,202 @@
+accessControl:
+  salt: zKgX43oHtyVzDz0uhpXvz9br1IF1o8Ed
+api:
+  key: 76869BD8452D494093FB91332240F245
+appearance: {}
+controls:
+- children:
+  - command: M42 P13 S255
+    name: Laser ON
+  - command: M42 P13 S0
+    name: Laser OFF
+  - commands:
+    - M42 P13 S0
+    - M106 S255
+    - G91
+    - G0 X0 Y0 F2000
+    - M400
+    - M3
+    - M42 P13 S32
+    - G0 X25 F480
+    - M400
+    - M5
+    - M42 P13 S0
+    - G0 X-25 F2000
+    - G0 X0 Y0.127 F2000
+    - M400
+    - M3
+    - M42 P13 S32
+    - G0 X25 F480
+    - M400
+    - M5
+    - M42 P13 S0
+    - G0 X-25 F2000
+    - G90
+    name: Focus
+  - commands:
+    - g0 z10 f100
+    - g28 y
+    - g28 x
+    - g0 x100 y100 f9000
+    - g28 z
+    name: AltHome
+  layout: horizontal
+  name: Laser
+- children:
+  - command: G0 X150 Y150 F9000
+    name: Center
+  - command: G0 X35 Y35 F9000
+    name: TopLeft
+  - command: G0 X150 Y35 F9000
+    name: TopCenter
+  - command: G0 X265 Y35 F9000
+    name: TopRight
+  - command: G0 X35 Y265 F9000
+    name: BottomLeft
+  - command: G0 X150 Y265 F9000
+    name: BottomCenter
+  - command: G0 X265 Y265 F9000
+    name: BottomRight
+  - command: G0 X0 Y0 F9000
+    name: Orig
+  - command: G0 X290 Y275 F9000
+    name: Far
+  layout: horizontal
+  name: Position
+- children:
+  - commands:
+    - G0 X265 Y35 F9000
+    - G0 X35 Y35 F9000
+    name: Top
+  - commands:
+    - G0 X265 Y265 F9000
+    - G0 X35 Y265 F9000
+    name: Bottom
+  - commands:
+    - G0 X35 Y35
+    - G0 X265 Y35
+    - G0 X265 Y265
+    - G0 X35 Y265
+    - G0 X35 Y35
+    - ''
+    name: Check
+  - commands:
+    - G0 X35 Y35
+    - G0 X265 Y265
+    - G0 X35 Y265
+    - G0 X265 Y35
+    - G0 X35 Y35
+    name: Diag
+  layout: horizontal
+  name: Area
+- children:
+  - command: M25
+    name: PauseSD
+  collapsed: true
+  layout: horizontal
+  name: Util
+feature: {}
+gcodeViewer: {}
+plugins:
+  _disabled:
+  - cura
+  - discovery
+  - virtual_printer
+  cura:
+    _config_version: null
+    cura_engine: /usr/local/bin/cura_engine
+    debug_logging: false
+    default_profile: null
+  discovery:
+    _config_version: null
+    httpPassword: null
+    httpUsername: null
+    model:
+      description: null
+      name: null
+      number: null
+      serial: null
+      url: null
+      vendor: null
+      vendorUrl: null
+    pathPrefix: null
+    publicHost: null
+    publicPort: 80
+    upnpUuid: 29a6f475-4889-42a9-b2b1-a87dd3aba7df
+    zeroConf: []
+  softwareupdate:
+    _config_version: 3
+    checks:
+      octoprint:
+        update_folder: /home/pi/OctoPrint
+        update_script: '{python} "/home/pi/oprint/lib/python2.7/site-packages/OctoPrint-1.2.2-py2.7.egg/octoprint/plugins/softwareupdate/scripts/update-octoprint.py"
+          --python="{python}" "{folder}" {target}'
+    environment_restart_command: sudo shutdown -r now
+    octoprint_restart_command: sudo service octoprint restart
+printerParameters: {}
+printerProfiles:
+  defaultProfile:
+    axes:
+      e:
+        inverted: false
+        speed: 300
+      x:
+        inverted: false
+        speed: 9000
+      y:
+        inverted: false
+        speed: 9000
+      z:
+        inverted: false
+        speed: 200
+    color: default
+    extruder:
+      count: 1
+      nozzleDiameter: 0.4
+      offsets:
+      - - 0.0
+        - 0.0
+    heatedBed: true
+    id: _default
+    model: LulzBotTaz
+    name: LulzBotTaz
+    volume:
+      depth: 300.0
+      formFactor: rectangular
+      height: 200.0
+      origin: lowerleft
+      width: 300.0
+serial:
+  autoconnect: true
+  baudrate: 115200
+  port: /dev/ttyACM0
+  timeout:
+    sdStatus: 3.0
+server:
+  firstRun: false
+  secretKey: WUIAqe4FdrpOBjMch3WJvSOsIHGtzjw9
+system:
+  actions:
+  - action: shutdown
+    async: true
+    command: sudo shutdown -h now
+    confirm: You are about to shutdown the system.
+    ignore: true
+    name: Shutdown
+  - action: reboot
+    async: true
+    command: sudo shutdown -r now
+    confirm: You are about to reboot the system
+    ignore: true
+    name: Reboot
+  - action: restart
+    async: true
+    command: sudo service octoprint restart
+    confirm: You are about to restart OctoPrint
+    ignore: true
+    name: Restart OctoPrint
+temperature: {}
+webcam:
+  ffmpeg: /usr/bin/avconv
+  snapshot: http://127.0.0.1:8080/?action=snapshot
+  stream: /webcam/?action=stream
