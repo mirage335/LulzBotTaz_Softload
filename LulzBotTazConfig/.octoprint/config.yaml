@@ -34,12 +34,39 @@ controls:
     - G90
     name: Focus
   - commands:
-    - g0 z10 f100
-    - g28 y
-    - g28 x
-    - g0 x100 y100 f9000
-    - g28 z
+    - G0 Z10 F100
+    - G28 Y
+    - G28 X
+    - G0 X100 Y100 F9000
+    - G28 Z
+    - ''
     name: AltHome
+  - commands:
+    - ;Laser precision test pattern.
+    - ;hand written gcode
+    - ''
+    - M42 P13 S0 ;(OFF - LASER)
+    - M106 S255 ;(Fan on.)
+    - ''
+    - ;Crosshairs
+    - G0 X100 Y100 Z0 F2000 ;(rapid move to begin)
+    - M400
+    - M3
+    - M42 P13 S255 ;(ON - LASER)
+    - ''
+    - G0 X100 Y50 Z0 F480
+    - G0 X100 Y150 Z0 F480
+    - G0 X100 Y100 Z0 F480
+    - ''
+    - G0 X50 Y100 Z0 F480
+    - G0 X150 Y100 Z0 F480
+    - G0 X100 Y100 Z0 F480
+    - ''
+    - M400
+    - M5
+    - M42 P13 S0 ;(OFF - LASER)
+    - ''
+    name: Crosshair
   layout: horizontal
   name: Laser
 - children:
@@ -139,7 +166,7 @@ printerProfiles:
     axes:
       e:
         inverted: false
-        speed: 300
+        speed: 65
       x:
         inverted: false
         speed: 9000
@@ -168,7 +195,7 @@ printerProfiles:
       width: 300.0
 serial:
   autoconnect: true
-  baudrate: 115200
+  baudrate: 250000
   port: /dev/ttyACM0
   timeout:
     sdStatus: 3.0
@@ -195,7 +222,14 @@ system:
     confirm: You are about to restart OctoPrint
     ignore: true
     name: Restart OctoPrint
-temperature: {}
+temperature:
+  profiles:
+  - bed: '105'
+    extruder: '230'
+    name: ABS
+  - bed: '65'
+    extruder: '185'
+    name: PLA
 webcam:
   ffmpeg: /usr/bin/avconv
   snapshot: http://127.0.0.1:8080/?action=snapshot
